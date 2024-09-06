@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'UserComponent',
+  //propiedad de usuario
   props: {
     user: {
       type: Object,
@@ -15,6 +16,7 @@ export default {
     }
   },
   methods: {
+    //metodo de enviar mensaje, asignar id de mensaje segun fecha y enviar a emit en componente padre una vez haya informacion para enviar
     sendMessage() {
       if (this.msgColor && this.message) {
         this.id = Date.now()
@@ -26,6 +28,7 @@ export default {
         this.message = ''
       }
     },
+    //metodo para actualizar color en tiempo real de los mensajes de un usuario asignado valores y enviando mediante emit
     updateColor() {
       this.$emit('update-color', {
         userId: this.user.userId,
@@ -37,6 +40,7 @@ export default {
 </script>
 
 <template>
+  <!--se mostrara formulario una vez exista objeto user-->
   <div v-if="user">
     <img :src="user.picture" :alt="user.firstName + ' ' + user.lastName" />
     <h3>{{ user.firstName }} {{ user.lastName }}</h3>

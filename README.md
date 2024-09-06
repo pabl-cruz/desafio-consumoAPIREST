@@ -1,6 +1,6 @@
 # desafio-consumoAPIREST
 
-This template should help get you started developing with Vue 3 in Vite.
+Desafío evaluado M7 de consumo de API REST en forma de una aplicacion de chat para Bootcamp Desafío Latam.
 
 ## Recommended IDE Setup
 

@@ -1,6 +1,7 @@
 <script>
 export default {
   name: 'ChatBoxComponent',
+  //propiedades para aceptar usuarios y arreglo de messages
   props: {
     user1: {
       type: Object,
@@ -14,20 +15,12 @@ export default {
       type: Array,
       required: true
     }
-  },
-  methods: {
-    updateMessageColors(userId, color) {
-      this.messages.forEach((msg) => {
-        if (msg.userId === userId) {
-          msg.msgColor = color
-        }
-      })
-    }
   }
 }
 </script>
 <template>
   <div class="chatbox">
+    <!--mostrar registro de mensajes de messages por id. clases de estilo condicionales msg asignaran alineacion en el chat segun el usuario que hizo el mensaje-->
     <div
       v-for="(message, id) in messages"
       :key="id"
@@ -37,8 +30,10 @@ export default {
         msgRight: message.userId === user2.userId
       }"
     >
+      <!--mostrar nombre de quien hizo el mensaje segun id de usuario mediante v-if-->
       <p v-if="message.userId === user1.userId">{{ user1.firstName }}</p>
       <p v-else-if="message.userId === user2.userId">{{ user2.firstName }}</p>
+      <!--estilo condicional en el que el color de fondo del mensaje tenga el valor al que puso el usuario-->
       <div
         class="msgbox"
         :style="{
