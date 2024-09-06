@@ -9,14 +9,16 @@ export default {
   },
   data() {
     return {
-      usersData: ''
+      usersData: '',
+      messages: []
     }
   },
   async mounted() {
     try {
       const url = 'https://randomuser.me/api/?results=2'
       const { data } = await axios.get(url)
-      this.usersData = data.results.map(({ name, picture }) => ({
+      this.usersData = data.results.map(({ name, picture }, index) => ({
+        userId: index + 1,
         firstName: name.first,
         lastName: name.last,
         picture: picture.large
@@ -26,16 +28,20 @@ export default {
       console.error(error)
     }
   },
-  methods: {}
+  methods: {
+    addMessage(msg) {
+      this.messages.push(msg)
+    }
+  }
 }
 </script>
 
 <template>
   <main>
     <h1>Chat</h1>
-    <UserComponent :user="usersData[0]" />
-    <ChatBoxComponent :user1="usersData[0]" :user2="usersData[1]" @add-message="addMessage" />
-    <UserComponent :user="usersData[1]" />
+    <UserComponent :user="usersData[0]" @add-message="addMessage" />
+    <ChatBoxComponent :user1="usersData[0]" :user2="usersData[1]" :messages="messages" />
+    <UserComponent :user="usersData[1]" @add-message="addMessage" />
   </main>
 </template>
 

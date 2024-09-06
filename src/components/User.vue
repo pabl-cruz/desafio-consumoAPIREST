@@ -11,17 +11,19 @@ export default {
     return {
       msgColor: '#888888',
       message: '',
-      userId: ''
+      id: ''
     }
   },
   methods: {
-    sendMessage(e) {
-      console.log('enviaste un mensaje')
-      console.log(this.msgColor)
-      console.log(this.message)
-      e.preventDefault
-      if (this.user.msgColor && this.user.message) {
-        this.$emit('add-message', { ...this.user })
+    sendMessage() {
+      if (this.msgColor && this.message) {
+        this.id = Date.now()
+        this.$emit('add-message', {
+          userId: this.user.userId,
+          message: this.message,
+          msgColor: this.msgColor
+        })
+        this.message = ''
       }
     }
   }

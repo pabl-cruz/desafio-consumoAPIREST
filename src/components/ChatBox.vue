@@ -4,39 +4,35 @@ export default {
   props: {
     user1: {
       type: Object,
-      required: true,
-      userId: 1
-    }
-  },
-  user2: {
-    type: Object,
-    required: true,
-    userId: 2
-  },
-  data() {
-    return {
-      messages: []
-    }
-  },
-  methods: {
-    addMessage(msg) {
-      this.messages.push(msg)
+      required: true
+    },
+    user2: {
+      type: Object,
+      required: true
+    },
+    messages: {
+      type: Array,
+      required: true
     }
   }
 }
 </script>
 <template>
-  <div class="chatbox" v-for="(message, id) in messages" :key="id">
-    <div
-      class="msgbox"
-      :class="{
-        bg-user1: user == 0,
-        bg-user2: user == 1,
-        msg-left: user == 0,
-        msg-right: user == 1,
-    }"
-    >
-      <p>{{ message }}</p>
+  <div class="chatbox">
+    <div v-for="(message, id) in messages" :key="id">
+      <p v-if="message.userId === user1.userId">{{ user1.firstName }}</p>
+      <p v-else-if="message.userId === user2.userId">{{ user2.firstName }}</p>
+      <div
+        class="msgbox"
+        :class="{
+          bgUser1: message.userId === user1.userId,
+          bgUser2: message.userId === user2.userId,
+          msgLeft: message.userId === user1.userId,
+          msgRight: message.userId === user2.userId
+        }"
+      >
+        <p>{{ message.message }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -47,23 +43,25 @@ export default {
   width: 50vw;
   height: 50vh;
   display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
 }
-.textbox {
+.msgbox {
   margin: 1rem;
   padding: 0.75rem;
   font-size: 13px;
 }
-.bg-user1 {
+.bgUser1 {
   background-color: cadetblue;
 }
-.bg-user2 {
+.bgUser2 {
   background-color: orange;
 }
-.msg-left {
+.msgLeft {
   justify-content: flex-start;
   text-align: left;
 }
-.msg-right {
+.msgRight {
   justify-content: flex-end;
   text-align: right;
 }
