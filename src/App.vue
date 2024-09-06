@@ -31,17 +31,25 @@ export default {
   methods: {
     addMessage(msg) {
       this.messages.push(msg)
+    },
+    updateColor({ userId, color }) {
+      this.messages.forEach((msg) => {
+        if (msg.userId === userId) {
+          msg.msgColor = color
+        }
+      })
     }
   }
 }
 </script>
 
 <template>
+  <h1>Chat</h1>
+  <br />
   <main>
-    <h1>Chat</h1>
-    <UserComponent :user="usersData[0]" @add-message="addMessage" />
+    <UserComponent :user="usersData[0]" @add-message="addMessage" @update-color="updateColor" />
     <ChatBoxComponent :user1="usersData[0]" :user2="usersData[1]" :messages="messages" />
-    <UserComponent :user="usersData[1]" @add-message="addMessage" />
+    <UserComponent :user="usersData[1]" @add-message="addMessage" @update-color="updateColor" />
   </main>
 </template>
 
@@ -51,6 +59,6 @@ main {
 }
 h1 {
   margin: 2rem;
-  justify-content: center;
+  text-align: center;
 }
 </style>

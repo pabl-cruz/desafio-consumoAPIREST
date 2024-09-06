@@ -25,6 +25,12 @@ export default {
         })
         this.message = ''
       }
+    },
+    updateColor() {
+      this.$emit('update-color', {
+        userId: this.user.userId,
+        color: this.msgColor
+      })
     }
   }
 }
@@ -32,9 +38,9 @@ export default {
 
 <template>
   <div v-if="user">
-    <img :src="user.picture" :alt="user.firstName + user.lastName" />
+    <img :src="user.picture" :alt="user.firstName + ' ' + user.lastName" />
     <h3>{{ user.firstName }} {{ user.lastName }}</h3>
-    <input type="color" v-model="msgColor" />
+    <input type="color" v-model="msgColor" @input="updateColor" />
     <textarea
       name="message"
       id="message"
